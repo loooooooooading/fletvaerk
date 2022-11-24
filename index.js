@@ -12,7 +12,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
     const animationDict = {}
     const pointer = new THREE.Vector2();
     
-    const particleNum = 1000;
+    const particleNum = 200;
     const maxRange = 1000;
     const minRange = maxRange / 2;
     const textureSize = 64.0;
