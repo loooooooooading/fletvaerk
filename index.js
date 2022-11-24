@@ -234,7 +234,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         const loader = new GLTFLoader();
         const textureLoader = new THREE.TextureLoader();
 
-        const loadModels = [loader.loadAsync('./models/heart.glb'), 
+        const loadModels = [loader.loadAsync('./models/heart1.glb'), 
         loader.loadAsync('./models/tree.glb'), 
         loader.loadAsync('./models/candles.glb'), 
         loader.loadAsync('./models/flap00.glb'), 
@@ -289,11 +289,10 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                         scene.add(model.scene);
                     });
                     let treeModel = model.scene.children[0];
-                    console.log(treeModel)
                     treeModel.material.color = forestGreen
                     scene.add(model.scene)
                 } else if(model.scene.children[0].name === "heart"){
-                    scene.add(model.scene)
+                    scene.add(model)
                 } else if(model.scene.children[0].name.includes('candle')){
                     scene.add(model.scene)
 
@@ -347,9 +346,8 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
                         flapModel.material = material
                         flapModel.material.needsUpdate = true;
-
+                        
                         const mixer = new THREE.AnimationMixer( model.scene );
-
                 
                         model.animations.forEach( ( clip ) => {
                             animationDict[flapModel.name] = mixer.clipAction(clip)
@@ -357,6 +355,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                         mixerArray.push(mixer)
 
                         scene.add(model.scene);
+                        
                     });
                 }
                 
@@ -366,28 +365,45 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
         /* pointer click
         -------------------------------------------------------------*/
+          let pointerElement
+          function pointerDownFunction(event) {
+            pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+            pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+          
+            raycaster.setFromCamera(pointer, camera);
+          
+            const intersects = raycaster.intersectObject(scene, true);
+            let hasIntersected = false
 
-        function onClick(event) {
+            intersects.forEach(object => {
+                if(object.object.name.includes('flap') && hasIntersected === false){
+                    hasIntersected = true
+                    pointerElement = object.object.id
+                } else if(object.object.name.includes('heart') && hasIntersected === false){
+                    hasIntersected = true
+                    pointerElement = object.object.id
+                }
+            })
+          }
+
+        function pointerUpFunction(event) {
 
             pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
             pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
           
             raycaster.setFromCamera(pointer, camera);
           
-            var intersects = raycaster.intersectObject(scene, true);
-          
-            intersects.forEach(object => {
-                console.log('click', object.object)
-                if(object.object.name.includes('flap')){
+            const intersects = raycaster.intersectObject(scene, true);
+            let hasIntersected = false
 
+            intersects.forEach(object => {
+                if(object.object.name.includes('flap') && hasIntersected === false && object.object.id === pointerElement){
+                    hasIntersected = true
                     const worldDirectionVector = object.object.getWorldDirection()
                     worldDirectionVector.setLength(1.5)
                     
                     const newCameraPosition = new THREE.Vector3( object.object.position.x + worldDirectionVector.x, object.object.position.y - 1, object.object.position.z + 1 * worldDirectionVector.z )
                     const newLookAtPosition = new THREE.Vector3( object.object.position.x, object.object.position.y - 1, object.object.position.z )
-
-                    console.log(worldDirectionVector.y)
-                    console.log(camera.position.y)
 
                     const axis = new THREE.Vector3( 0, 1, 0 );
                     const angle = Math.PI / 1.5;
@@ -396,21 +412,24 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     orbitControls.object.position.copy(newCameraPosition)
                     orbitControls.target = newLookAtPosition
                     orbitControls.update()
-
                 
                     camera.updateProjectionMatrix()
-
-                    console.log('new camera y', camera.position.y)
 
                     const animation = animationDict[object.object.name]
                     animation.setLoop(0,0)
                     animation.clampWhenFinished = true;
                     animation.play()
-                  }
+                } else if(object.object.name.includes('heart') && hasIntersected === false && object.object.id === pointerElement){
+                    hasIntersected = true
+                    window.open(`./days/1december.pdf`,'_blank');
+                }
             })
+
+            if(hasIntersected === false) pointerElement = ''
           }
 
-          renderer.domElement.addEventListener( 'pointerdown', onClick );
+        renderer.domElement.addEventListener( 'pointerdown', pointerDownFunction );
+        renderer.domElement.addEventListener( 'pointerup', pointerUpFunction );
 
         /* pointer move
         -------------------------------------------------------------*/
