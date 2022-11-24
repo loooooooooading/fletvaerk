@@ -6,7 +6,8 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         orbitControls, 
         particles,
         clock, 
-        raycaster
+        raycaster,
+        audioPlayer
 
     const mixerArray = []
     const animationDict = {}
@@ -112,8 +113,8 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
     }
 
     const init = () => {
-
         raycaster = new THREE.Raycaster();
+        
 
         /* scene
         -------------------------------------------------------------*/
@@ -124,6 +125,18 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         -------------------------------------------------------------*/
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
         camera.position.set(-2.569379423324129, -1.1012706722918708, 3.0307577081232293);
+
+        /* audio
+        -------------------------------------------------------------*/
+        const listener = new THREE.AudioListener();
+        camera.add( listener );
+        audioPlayer = new THREE.Audio( listener );
+        const audioLoader = new THREE.AudioLoader();
+        audioLoader.load( './openFlap.mp3', function( buffer ) {
+            audioPlayer.setBuffer( buffer );
+            audioPlayer.setLoop( false );
+            audioPlayer.setVolume( 1 );
+        });
 
         /* renderer
         -------------------------------------------------------------*/
@@ -419,6 +432,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     animation.setLoop(0,0)
                     animation.clampWhenFinished = true;
                     animation.play()
+                    audioPlayer.play();
                 } else if(object.object.name.includes('heart') && hasIntersected === false && object.object.id === pointerElement){
                     hasIntersected = true
                     window.open(`./days/1december.pdf`,'_blank');
