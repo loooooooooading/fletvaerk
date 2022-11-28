@@ -83,13 +83,16 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
         raycaster.setFromCamera(pointer, camera);
 
-        var intersects = raycaster.intersectObject(scene, true);
+        const intersects = raycaster.intersectObject(scene, true);
+        let intersecting = false
 
         intersects.forEach(object => {
-            if(object.object.name === 'flap'){
-                // todo glow on hover
+            if(object.object.name.includes('flap') || object.object.name.includes('heart')){
+                intersecting = true
               }
         })
+
+        if (intersecting === true) { document.body.style.cursor = 'pointer' } else { document.body.style.cursor = 'default' }
 
         particles.geometry.verticesNeedUpdate = true;
 
@@ -113,9 +116,10 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
     }
 
     const init = () => {
+        const month = new Date().getMonth()
+        const date = 7 //new Date().getDate() todo
         raycaster = new THREE.Raycaster();
         
-
         /* scene
         -------------------------------------------------------------*/
         scene = new THREE.Scene();
@@ -124,7 +128,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         /* camera
         -------------------------------------------------------------*/
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
-        camera.position.set(-2.569379423324129, -1.1012706722918708, 3.0307577081232293);
+        camera.position.set(2.5, 1, 2.5);
 
         /* audio
         -------------------------------------------------------------*/
@@ -155,6 +159,8 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
         orbitControls.autoRotate = false;
         orbitControls.enableDamping = true;
+        orbitControls.enablePan = false
+        orbitControls.enableZoom = false
         orbitControls.dampingFactor = 0.2;
 
         /* AmbientLight
@@ -247,6 +253,13 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         const loader = new GLTFLoader();
         const textureLoader = new THREE.TextureLoader();
 
+        let calendarState
+        if(window.localStorage.getItem("calendarState") !== null){
+            calendarState = JSON.parse(window.localStorage.getItem("calendarState")) 
+        } else {
+            calendarState = false
+        }
+
         const loadModels = [loader.loadAsync('./models/heart1.glb'), 
         loader.loadAsync('./models/tree.glb'), 
         loader.loadAsync('./models/candles.glb'), 
@@ -304,8 +317,8 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     let treeModel = model.scene.children[0];
                     treeModel.material.color = forestGreen
                     scene.add(model.scene)
-                } else if(model.scene.children[0].name === "heart"){
-                    scene.add(model)
+                } else if(model.scene.children[0].name.includes("heart")){
+                    scene.add(model.scene)
                 } else if(model.scene.children[0].name.includes('candle')){
                     scene.add(model.scene)
 
@@ -342,13 +355,13 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     })
                 } else {
                     const dayNumber = parseInt(model.scene.children[0].name.slice(5))+1
-                    textureLoader.load( `./flaps/${dayNumber}.png`, function ( map ) {
-                        map.flipY = false;
-                        map.needsUpdate = true
+
+                    if(calendarState === false || (dayNumber in calendarState) === false){
+                        
                         let flapModel = model.scene.children[0];
 
                         let uniforms = {
-                            uTexture: { value: map }
+                            uTexture: { value: model.scene.children[0].material.map }
                         }
 
                         let material =  new THREE.ShaderMaterial({
@@ -368,8 +381,9 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                         mixerArray.push(mixer)
 
                         scene.add(model.scene);
+                            
                         
-                    });
+                    }                    
                 }
                 
                 
@@ -410,17 +424,36 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
             let hasIntersected = false
 
             intersects.forEach(object => {
-                if(object.object.name.includes('flap') && hasIntersected === false && object.object.id === pointerElement){
+                const dateString = parseInt(object.object.name.slice(5)) + 1
+
+                if(object.object.name.includes('flap') && hasIntersected === false 
+                && object.object.id === pointerElement && date >= dateString){
                     hasIntersected = true
+                    
+                    if(calendarState === false){
+                        calendarState = {
+                            [dateString]: true
+                        }
+                    } else {
+                        calendarState[dateString] = true
+                    }
+                    window.localStorage.setItem('calendarState', JSON.stringify(calendarState))
+
+                    const offsetWorldDirectionVector = object.object.getWorldDirection()
+                    const zAxis = new THREE.Vector3( 0, 1, 0 )
+                    const ninetyDegrees = Math.PI / 1.5
+                    offsetWorldDirectionVector.applyAxisAngle( zAxis, ninetyDegrees );
+                    offsetWorldDirectionVector.setLength(0.1)
+
                     const worldDirectionVector = object.object.getWorldDirection()
                     worldDirectionVector.setLength(1.5)
-                    
-                    const newCameraPosition = new THREE.Vector3( object.object.position.x + worldDirectionVector.x, object.object.position.y - 1, object.object.position.z + 1 * worldDirectionVector.z )
-                    const newLookAtPosition = new THREE.Vector3( object.object.position.x, object.object.position.y - 1, object.object.position.z )
 
-                    const axis = new THREE.Vector3( 0, 1, 0 );
-                    const angle = Math.PI / 1.5;
-                    newCameraPosition.applyAxisAngle( axis, angle );
+                    const newCameraPosition = new THREE.Vector3( object.object.position.x + worldDirectionVector.x, object.object.position.y - 1, object.object.position.z + 1 * worldDirectionVector.z )
+                    const newLookAtPosition = new THREE.Vector3( object.object.position.x + offsetWorldDirectionVector.x , object.object.position.y - 0.9, object.object.position.z + offsetWorldDirectionVector.z )
+
+                    const axis = new THREE.Vector3( 0, 1, 0 )
+                    const angle = Math.PI / 1.5
+                    newCameraPosition.applyAxisAngle( axis, angle )
 
                     orbitControls.object.position.copy(newCameraPosition)
                     orbitControls.target = newLookAtPosition
