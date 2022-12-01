@@ -129,7 +129,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
     const init = () => {
         // const month = new Date().getMonth()
-        const date = new Date().getDate()
+        const date = 3//new Date().getDate()
         raycaster = new THREE.Raycaster();
         
         /* scene
@@ -183,11 +183,17 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
         /* SpotLight
         -------------------------------------------------------------*/
-        const spotLight = new THREE.PointLight(0xffffff, 5);
+        const spotLight = new THREE.PointLight(0xffffff, 4);
         spotLight.distance = 2000;
         spotLight.position.set(50, 10, 50);
         spotLight.castShadow = true;
         scene.add(spotLight);
+        
+        const spotLight2 = new THREE.PointLight(0xffffff, 4);
+        spotLight2.distance = 2000;
+        spotLight2.position.set(-50, 10, -50);
+        spotLight2.castShadow = true;
+        scene.add(spotLight2);
 
         /* Clock */
 
@@ -274,6 +280,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         }
 
         const loadModels = [loader.loadAsync('./models/heart1.glb'), 
+        loader.loadAsync('./models/heart2.glb'),
         loader.loadAsync('./models/tree.glb'), 
         loader.loadAsync('./models/candles.glb'), 
         loader.loadAsync('./models/flap00.glb'), 
@@ -510,7 +517,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     
                 } else if(object.object.name.includes('heart') && hasIntersected === false && object.object.id === pointerElement){
                     hasIntersected = true
-                    window.open(`./days/1december.pdf`,'_blank');
+                    window.open(`./days/${object.object.name.slice(5,6)}december.pdf`,'_blank');
                 }
             })
 
