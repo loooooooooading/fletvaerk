@@ -7,8 +7,13 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         particles,
         clock, 
         raycaster,
-        audioPlayer
-
+        audioPlayer,
+        arrowModel
+        
+    let lerping = false
+    let cameraTarget = new THREE.Vector3(2.5, 1.5, 2.5)
+    let zoomedIn = false
+    const positionArray = {}
     const mixerArray = []
     const animationDict = {}
     const pointer = new THREE.Vector2();
@@ -52,7 +57,6 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
     const render = (timeStamp) => {
 
-        orbitControls.update();
         if(mixerArray.length > 0){
             const delta = clock.getDelta()
             mixerArray.forEach(mixer => mixer.update(delta))       
@@ -96,6 +100,14 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
         particles.geometry.verticesNeedUpdate = true;
 
+        orbitControls.update();
+        
+        if(lerping === false){
+            cameraTarget = orbitControls.object.position
+        }
+        camera.position.lerp(cameraTarget, 0.1);
+             
+
         renderer.render(scene, camera);
 
         requestAnimationFrame(render);
@@ -116,8 +128,8 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
     }
 
     const init = () => {
-        const month = new Date().getMonth()
-        const date = 7 //new Date().getDate() todo
+        // const month = new Date().getMonth()
+        const date = new Date().getDate()
         raycaster = new THREE.Raycaster();
         
         /* scene
@@ -128,7 +140,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         /* camera
         -------------------------------------------------------------*/
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
-        camera.position.set(2.5, 1, 2.5);
+        camera.position.set(2.5, 1.5, 2.5);
 
         /* audio
         -------------------------------------------------------------*/
@@ -162,6 +174,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         orbitControls.enablePan = false
         orbitControls.enableZoom = false
         orbitControls.dampingFactor = 0.2;
+        orbitControls.target = new THREE.Vector3(0, 0.25, 0)
 
         /* AmbientLight
         -------------------------------------------------------------*/
@@ -190,7 +203,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
                 void main() {
                     vUv = uv;
-                    vec2 resolution = vec2(240, 180);
+                    vec2 resolution = vec2(480, 360);
 
                     vec4 snapToPixel = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
                     vec4 vertex = snapToPixel;
@@ -318,6 +331,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     treeModel.material.color = forestGreen
                     scene.add(model.scene)
                 } else if(model.scene.children[0].name.includes("heart")){
+                    positionArray[model.scene.name] = model.scene.children[0].position
                     scene.add(model.scene)
                 } else if(model.scene.children[0].name.includes('candle')){
                     scene.add(model.scene)
@@ -381,14 +395,20 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                         mixerArray.push(mixer)
 
                         scene.add(model.scene);
-                            
-                        
                     }                    
                 }
                 
                 
             })
           })
+
+          const arrowmodelLoader = [loader.loadAsync('./models/rotatingArrow.glb')]
+
+            Promise.all(arrowmodelLoader).then(models => {
+                models.forEach(model => {
+                    arrowModel = model
+                }) 
+            })
 
         /* pointer click
         -------------------------------------------------------------*/
@@ -455,7 +475,8 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     const angle = Math.PI / 1.5
                     newCameraPosition.applyAxisAngle( axis, angle )
 
-                    orbitControls.object.position.copy(newCameraPosition)
+                    // orbitControls.object.position.copy(newCameraPosition)
+                    cameraTarget = newCameraPosition
                     orbitControls.target = newLookAtPosition
                     orbitControls.update()
                 
@@ -466,6 +487,27 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     animation.clampWhenFinished = true;
                     animation.play()
                     audioPlayer.play();
+
+                    const arrowModelScene = arrowModel.scene
+                    const mixer = new THREE.AnimationMixer( arrowModelScene );
+                    animationDict['arrow'] = mixer.clipAction(arrowModel.animations[0])
+                    const arrowAnimation = animationDict['arrow']
+                    arrowAnimation.setLoop(1)
+                    arrowAnimation.play()
+                    mixerArray.push(mixer)
+                    arrowModelScene.position.set(positionArray["Scene"].x, positionArray["Scene"].y, positionArray["Scene"].z)
+                    scene.add(arrowModelScene)
+                    arrowModelScene.position.set(positionArray["Scene"].x, positionArray["Scene"].y - 1.11, positionArray["Scene"].z)
+
+                    if(zoomedIn === false){
+                        toggleZoomButton()
+                    } else {
+                        lerping = true
+                        setTimeout(() => {
+                            lerping = false
+                        }, 1000)
+                    }
+                    
                 } else if(object.object.name.includes('heart') && hasIntersected === false && object.object.id === pointerElement){
                     hasIntersected = true
                     window.open(`./days/1december.pdf`,'_blank');
@@ -486,16 +528,42 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         -------------------------------------------------------------*/
         window.addEventListener('resize', onResize);
 
+        const button = document.getElementById("zoomOutButton")
+        button.addEventListener("click", toggleZoomButton)
+
         /* rendering start
         -------------------------------------------------------------*/
         document.getElementById('WebGL-output').appendChild(renderer.domElement);
         requestAnimationFrame(render);
     }
 
+    function toggleZoomButton(){
+        lerping = true
+        const button = document.getElementById("zoomOutButton")
+        const titleImage = document.getElementById('titleImage')
+        const audioPlayer = document.getElementById('audioPlayer')
+        if(zoomedIn === true){
+            button.style.display = "none"
+            titleImage.style.display = 'block'
+            audioPlayer.style.display = 'block'
+            zoomedIn = false
+            cameraTarget = new THREE.Vector3(2.5, 1, 2.5)
+            orbitControls.target = new THREE.Vector3(0, 0.25, 0)
+            orbitControls.update()
+        } else {
+            button.style.display = "flex"
+            titleImage.style.display = 'none'
+            audioPlayer.style.display = 'none'
+            zoomedIn = true
+        }
+
+        setTimeout(() => {
+            lerping = false
+        }, 1000)
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         init();
-
-        
     });
 
     function makeLabelCanvas(baseWidth, size, name) {
