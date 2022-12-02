@@ -281,6 +281,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
         const loadModels = [loader.loadAsync('./models/heart1.glb'), 
         loader.loadAsync('./models/heart2.glb'),
+        loader.loadAsync('./models/heart3.glb'),
         loader.loadAsync('./models/tree.glb'), 
         loader.loadAsync('./models/candles.glb'), 
         loader.loadAsync('./models/flap00.glb'), 
