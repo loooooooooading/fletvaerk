@@ -285,6 +285,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         loader.loadAsync('./models/heart4.glb'),
         loader.loadAsync('./models/heart5.glb'),
         loader.loadAsync('./models/heart6.glb'),
+        loader.loadAsync('./models/heart7.glb'),
         loader.loadAsync('./models/tree.glb'), 
         loader.loadAsync('./models/candles.glb'), 
         loader.loadAsync('./models/flap00.glb'), 
@@ -355,7 +356,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                           });
 
                         model.scene.children.forEach((candle, index) => {
-                            const labelCanvas = makeLabelCanvas(100, 60, `candle${index}`);
+                            const labelCanvas = makeLabelCanvas(40, 28, `candle${index}`);
                             const texture = new THREE.CanvasTexture(labelCanvas);
                             // because our canvas is likely not a power of 2
                             // in both dimensions set the filtering appropriately.
@@ -365,7 +366,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
                             const root = new THREE.Object3D()
                             root.position.x = candle.position.x;
-                            root.position.y = candle.position.y - 0.8;
+                            root.position.y = candle.position.y - 0.84;
                             root.position.z = candle.position.z;
 
                             const labelBaseScale = 0.01;
