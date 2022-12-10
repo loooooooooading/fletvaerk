@@ -195,6 +195,12 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         spotLight2.castShadow = true;
         scene.add(spotLight2);
 
+        const spotLight3 = new THREE.PointLight(0xffffff, 4);
+        spotLight3.distance = 1000;
+        spotLight3.position.set(25, -10, 50);
+        spotLight3.castShadow = true;
+        scene.add(spotLight3);
+
         /* Clock */
 
         clock = new THREE.Clock()
@@ -288,6 +294,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         loader.loadAsync('./models/heart7.glb'),
         loader.loadAsync('./models/heart8.glb'),
         loader.loadAsync('./models/heart9.glb'),
+        loader.loadAsync('./models/heart10.glb'),
         loader.loadAsync('./models/tree.glb'), 
         loader.loadAsync('./models/candles.glb'), 
         loader.loadAsync('./models/flap00.glb'), 
@@ -524,7 +531,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     
                 } else if(object.object.name.includes('heart') && hasIntersected === false && object.object.id === pointerElement){
                     hasIntersected = true
-                    window.open(`./days/${object.object.name.slice(5,6)}december.pdf`,'_blank');
+                    window.open(`./days/${object.object.name.slice(5,7).replace('_','')}december.pdf`,'_blank');
                 }
             })
 
