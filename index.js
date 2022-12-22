@@ -129,7 +129,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
     const init = () => {
         // const month = new Date().getMonth()
-        const date = 24//new Date().getDate()
+        const date = new Date().getDate()
         raycaster = new THREE.Raycaster();
         
         /* scene
