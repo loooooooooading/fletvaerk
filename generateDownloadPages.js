@@ -145,7 +145,7 @@ patternList.forEach(pattern => {
     Vibrant.from(`./heartRenders/${pattern.date}—${pattern.name}.png`).getPalette((err, palette) => {
         if(err === undefined){
             const color = palette.DarkVibrant._rgb
-            fs.writeFile(`./downloadPages/${pattern.date}—${pattern.name}.html`, generateTextFileContnts(pattern.date, pattern.name, color), function(err) {
+            fs.writeFile(`./public/${pattern.date}—${pattern.name}.html`, generateTextFileContnts(pattern.date, pattern.name, color), function(err) {
                 if(err) {
                     return console.log(err);
                 }
