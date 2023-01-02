@@ -125,7 +125,7 @@ function generateTextFileContnts(date, name, color){
     <body style="margin: 0;">
     <main style="">
         <div class="imgbox">
-            <img class="center-fit" src="../heartRenders/${date}—${name}.png" alt="a purple and white woven heart pattern render">
+            <img class="center-fit" src="./heartRenders/${date}—${name}.png" alt="a purple and white woven heart pattern render">
         </div>
         <div style="position: fixed; bottom: 2.5rem; left: 0; width: 100%; height: 1rem; padding: 5px;">
             <a href="https://www.loooading.com/" style="color:black;">LOOOADING</a> © 2022 — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" style="black: white;">BY-NC-SA 4.0</a>
@@ -134,7 +134,7 @@ function generateTextFileContnts(date, name, color){
             <div style="display: grid; grid-template-columns: 3fr 1fr 1fr; color: white;">
                 <h1 style="font-size:x-large; font-family: Arial, Helvetica, sans-serif;">${name}</h1>
                 <p style="font-size:x-large; font-family: Arial, Helvetica, sans-serif;" >${date}</p>
-                <a href="../days/${date}—${name}.pdf" style=" color:white; display: flex; font-size:x-large; font-family: Arial, Helvetica, sans-serif;"> <img style="height: 30px; width: auto; margin-right: 5px; filter: invert(1);" src="../Arrow_Down.svg"> Download </a>
+                <a href="./patterns/${date}—${name}.pdf" style=" color:white; display: flex; font-size:x-large; font-family: Arial, Helvetica, sans-serif;"> <img style="height: 30px; width: auto; margin-right: 5px; filter: invert(1);" src="./Arrow_Down.svg"> Download </a>
             </div>
         </div>
     </main>
@@ -142,7 +142,7 @@ function generateTextFileContnts(date, name, color){
 }
 
 patternList.forEach(pattern => {
-    Vibrant.from(`./heartRenders/${pattern.date}—${pattern.name}.png`).getPalette((err, palette) => {
+    Vibrant.from(`./public/heartRenders/${pattern.date}—${pattern.name}.png`).getPalette((err, palette) => {
         if(err === undefined){
             const color = palette.DarkVibrant._rgb
             fs.writeFile(`./public/${pattern.date}—${pattern.name}.html`, generateTextFileContnts(pattern.date, pattern.name, color), function(err) {
