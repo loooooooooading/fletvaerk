@@ -1,155 +1,251 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- HTML Meta Tags -->
-    <title>Fletværk Julehjerte Julekalender</title>
-    <meta name="description" content="En julehjerte julekalender hvor man får et nyt hjertemønster hver dag i december.
-                    A wovenheart paper weaving advent calendar in which you get a new heart design every day of december.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- HTML Meta Tags -->
+  <title>Fletværk — Et Netværk af Fletværk</title>
+  <meta name="description" content="En julehjerte julekalender hvor man får et nyt hjertemønster hver dag i december.
+                  A wovenheart paper weaving advent calendar in which you get a new heart design every day of december.">
 
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://www.xn--fletvrk-qxa.dk/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Fletværk Julehjerte Julekalender">
-    <meta property="og:description" content="En julehjerte julekalender hvor man får et nyt hjertemønster hver dag i december.
-                        A wovenheart paper weaving advent calendar in which you get a new heart design every day of december.">
-    <meta property="og:image:secure_url" content="https://xn--fletvrk-qxa.dk/ogImage.png">
-    <meta property="og:image" content="http://xn--fletvrk-qxa.dk/ogImage.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="https://www.xn--fletvrk-qxa.dk/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fletværk — Et Netværk af Fletværk">
+  <meta property="og:description" content="En julehjerte julekalender hvor man får et nyt hjertemønster hver dag i december.
+                      A wovenheart paper weaving advent calendar in which you get a new heart design every day of december.">
+  <meta property="og:image:secure_url" content="https://xn--fletvrk-qxa.dk/ogImage.png">
+  <meta property="og:image" content="http://xn--fletvrk-qxa.dk/ogImage.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
 
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="xn--fletvrk-qxa.dk">
-    <meta property="twitter:url" content="https://www.xn--fletvrk-qxa.dk/">
-    <meta name="twitter:title" content="Fletværk Julehjerte Julekalender">
-    <meta name="twitter:description" content="En julehjerte julekalender hvor man får et nyt hjertemønster hver dag i december.
-                        A wovenheart paper weaving advent calendar in which you get a new heart design every day of december.">
-    <meta name="twitter:image" content="https://xn--fletvrk-qxa.dk/ogImage.png">
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="xn--fletvrk-qxa.dk">
+  <meta property="twitter:url" content="https://www.xn--fletvrk-qxa.dk/">
+  <meta name="twitter:title" content="Fletværk — Et Netværk af Fletværk">
+  <meta name="twitter:description" content="En julehjerte julekalender hvor man får et nyt hjertemønster hver dag i december.
+                      A wovenheart paper weaving advent calendar in which you get a new heart design every day of december.">
+  <meta name="twitter:image" content="https://xn--fletvrk-qxa.dk/ogImage.png">
 
-
+  <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+  <link rel="manifest" href="./favicon/site.webmanifest">
+</head>
+<header>
     <style>
-        body { 
-            margin: 0;
-            overflow: hidden;
-            background: #000046;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to top, #1CB5E0, #000046);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to top, #1CB5E0, #000046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        }
-
-        :root {
-  --width: 100px;
-  --x-speed: 13s;
-  --y-speed: 7s;
-  --transition-speed: 2.2s;
+        main.gallery {
+  padding: 2rem;
 }
 
-.el { 
-  width: var(--width);
-  height: var(--width);
+li {
+    list-style:none;
 }
 
-.x {
-  animation: x var(--x-speed) linear infinite alternate;
-}
-.y {
-  animation: y var(--y-speed) linear infinite alternate;
+.gallery > h1 {
+  font-size: 3rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin-bottom: 1rem;
+  color: #333333;
+  font-weight: 100;
 }
 
-@keyframes x {
-  100% {
-    transform: translateX(calc(100vw - var(--width)));
-  }
+.gallery > .gallery__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-rows: repeat(6, 200px);
+  grid-gap: 1rem;
+  grid-auto-flow: dense;
+  padding: 0;
 }
-@keyframes y {
-  100% {
-    transform: translateY(calc(100vh - var(--width)));
-  }
+
+.gallery > .gallery__list > li > a > figure {
+  height: 100%;
+  margin: 0;
+}
+
+.gallery > .gallery__list > li > a > figure > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
     </style>
-    <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
-    <script>
-
-        function startWith(){
-            audioIcon = document.getElementById('audioIcon')
-            if(audioIcon.src.includes("play")){
-                audioIcon.src = "./pause.svg"
-                MIDIjs.play('./silentnt.mid')
-            } else {
-                audioIcon.src = "./play.svg"
-                MIDIjs.pause()
-            }
-
-            document.getElementById('audioOn').style.display = 'none'
-            document.getElementById('audioOff').style.display = 'none'
-            document.getElementById('entryLayer').style.display = 'none'
-        }
-
-        function startWithout(){
-            document.getElementById('audioOn').style.display = 'none'
-            document.getElementById('audioOff').style.display = 'none'
-            document.getElementById('entryLayer').style.display = 'none'
-        }
-
-        function toggle(){
-            audioIcon = document.getElementById('audioIcon')
-            if(audioIcon.src.includes("play")){
-                audioIcon.src = "./pause.svg"
-                MIDIjs.play('./silentnt.mid')
-            } else {
-                audioIcon.src = "./play.svg"
-                MIDIjs.pause()
-            }
-        }
-    </script>
-    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
-    <link rel="manifest" href="./favicon/site.webmanifest">
-</head>
-
-<body id="body">
-    <div id="WebGL-output"></div>
-    <div style="z-index: 30; pointer-events: none; top: 0; left: 0; position: absolute; width: 100%; height: 100%; border-image-slice:
-    110 115 98 111;
-    border-image-width:
-    20px 20px 20px 20px;
-    border-image-outset:
-    0px 0px 0px 0px;
-    border-image-repeat:
-    repeat repeat;
-    border-image-source: url('./bitmap.png');
-    border-style: solid;" >
-    </div>
-    <img id="titleImage" style="pointer-events: none; max-width: 500px; transform: translate(-50%, 0); position: fixed; z-index: 30; left: 50vw; top:5vh; width: 80%;" src="./fletvaerk.png" />
-    <div id="audioPlayer" style="z-index: 30; position: absolute; width:10vh; height:10vh">
-        <a  href="#" onclick="toggle()" id="audioOn" style="position: fixed; bottom:5vh; left:5vh; display:flex; cursor: pointer; font-family: Arial, Helvetica, sans-serif; color: white; text-align: center;  z-index: 40; background: crimson; padding: 1rem; border-radius: 100%; width:8vh; height:8vh; " >
-            <img id="audioIcon" style=" padding-right: 5px; justify-self: center; place-self: center; width: 20px; filter: invert(1);" src="./play.svg"  />
-            <span style="width:100%; justify-self: center; place-self: center; font-weight: bold;">LYT</span>
+</header>
+<main class="gallery">
+    <h1 style=" margin: 0; font-size:xx-large; font-family: Georgia, 'Times New Roman', Times, serif; font-weight: 800; position: fixed; top: 0; left: 0; width: 100%; height: 1rem; padding: 5px;">Et Netværk af Fletværk</h1>
+    <a href="./2022" style=" text-decoration: none; background: #BB1E41; color: white; font-size:x-large; font-family: Arial, Helvetica, sans-serif; position: fixed; top: 0; right: 0; height: 1.5rem; padding: 5px;"><span style="font-size: x-large; color: chartreuse;">➶</span> Julehjerte Julekalender 2022</a>
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 1rem; padding: 5px;">
+      <a href="https://www.loooading.com/" style="color:black;">LOOOADING</a> © 2022 — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" style="black: white;">BY-NC-SA 4.0</a>
+  </div>
+    <ul class="gallery__list">
+      <li>
+        <a href="./downloadPages/01-12-2022—h.c.hjerte.html">
+        <figure>
+          <img src="./heartRenders/01-12-2022—h.c.hjerte.png" alt="a woven heart">
+        </figure>
         </a>
-    </div>
-    <div id="zoomOutButton" style="display:none; cursor: pointer; font-family: Arial, Helvetica, sans-serif; color: white; text-align: center; position: fixed; z-index: 30; left: 50vw; bottom:5vh; background: #4FD43F; border-radius: 100%; width:15vh; height:15vh; transform: translate(-50%, 50%);" >
-        <span style="width:100%; justify-self: center; place-self: center; font-weight: bold;">ZOOM UD</span>
-    </div>
-    <div style="position: fixed; bottom:20px; font-size: 0.8rem; right: 20px; color: #BAE1D0">
-        <div style="padding: 0;">Made by</div>
-        <a style=" margin: 0; color: #BAE1D0" target="_blank" href="https://www.loooading.com/">LOOOADING</a>
-    </div>
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r124/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.124.0/examples/js/utils/BufferGeometryUtils.js"></script>
-    <script src="https://unpkg.com/three@0.124.0/examples/js/controls/OrbitControls.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/tweenjs@1.0.2/lib/tweenjs.min.js"></script>
-
-    <script type="module" src="./index.js"> </script>
-
-    <script data-goatcounter="https://loooading.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-</body>
-
-</html>
+      </li>
+      <li>
+        <a href="./downloadPages/02-12-2022—cirkelhjerte.html">
+        <figure>
+          <img src="./heartRenders/02-12-2022—cirkelhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/03-12-2022—fleurhjerte.html">
+        <figure>
+          <img src="./heartRenders/03-12-2022—fleurhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/04-12-2022—dråbeflammehjerte.html">
+        <figure>
+          <img src="./heartRenders/04-12-2022—dråbeflammehjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/05-12-2022—ruderhjerte.html">
+        <figure>
+          <img src="./heartRenders/05-12-2022—ruderhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/06-12-2022—citronhjerte.html">
+        <figure>
+          <img src="./heartRenders/06-12-2022—citronhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/07-12-2022—bingodopperhjerte.html">
+        <figure>
+          <img src="./heartRenders/07-12-2022—bingodopperhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/08-12-2022—firbåndhjerte.html">
+        <figure>
+          <img src="./heartRenders/08-12-2022—firbåndhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/09-12-2022—alhambrav0hjerte.html">
+        <figure>
+          <img src="./heartRenders/09-12-2022—alhambrav0hjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/10-12-2022—rorsachhjerte.html">
+        <figure>
+          <img src="./heartRenders/10-12-2022—rorsachhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/11-12-2022—trehjerte.html">
+        <figure>
+          <img src="./heartRenders/11-12-2022—trehjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/12-12-2022—kirsebærkyshjerte.html">
+        <figure>
+          <img src="./heartRenders/12-12-2022—kirsebærkyshjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/13-12-2022—solhjulhjerte.html">
+        <figure>
+          <img src="./heartRenders/13-12-2022—solhjulhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/14-12-2022—nordstjernehjerte.html">
+        <figure>
+          <img src="./heartRenders/14-12-2022—nordstjernehjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/15-12-2022—leveluphjerte.html">
+        <figure>
+          <img src="./heartRenders/15-12-2022—leveluphjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/16-12-2022—alhambrahjerte2.html">
+        <figure>
+          <img src="./heartRenders/16-12-2022—alhambrahjerte2.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/17-12-2022—tesselationshjerte1.html">
+        <figure>
+          <img src="./heartRenders/17-12-2022—tesselationshjerte1.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/18-12-2022—larvebidhjerte.html">
+        <figure>
+          <img src="./heartRenders/18-12-2022—larvebidhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/19-12-2022—bjørnehjerte.html">
+        <figure>
+          <img src="./heartRenders/19-12-2022—bjørnehjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/20-12-2022—rebhjerte.html">
+        <figure>
+          <img src="./heartRenders/20-12-2022—rebhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/21-12-2022—firstjernehjerte.html">
+        <figure>
+          <img src="./heartRenders/21-12-2022—firstjernehjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/22-12-2022—krydssøjlehjerte.html">
+        <figure>
+          <img src="./heartRenders/22-12-2022—krydssøjlehjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/23-12-2022—quatrofoilhjerte.html">
+        <figure>
+          <img src="./heartRenders/23-12-2022—quatrofoilhjerte.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+      <li>
+        <a href="./downloadPages/24-12-2022—julestjernehjerte2022.html">
+        <figure>
+          <img src="./heartRenders/24-12-2022—julestjernehjerte2022.png" alt="a woven heart">
+        </figure>
+        </a>
+      </li>
+    </ul>
+  </main>

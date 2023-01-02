@@ -1,0 +1,22 @@
+{
+  "name": "fletvaerk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node generateDownloadPages.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loooooooooading/fletvaerk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loooooooooading/fletvaerk/issues"
+  },
+  "homepage": "https://github.com/loooooooooading/fletvaerk#readme",
+  "devDependencies": {
+    "node-vibrant": "^3.2.1-alpha.1"
+  }
+}
