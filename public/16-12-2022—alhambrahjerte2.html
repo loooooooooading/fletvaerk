@@ -1,6 +1,59 @@
 <!DOCTYPE html>
     <head>
         <style>
+            html, body {margin: 0; height: 100%; overflow: hidden; width:100%}
+
+            .textSize {
+                font-size: 72px;
+            }
+            .contentBar {
+                height: 7vh;
+            }
+            .logoHeight {
+                height: 65px;
+            }
+            .descriptorFontSize {
+                font-size: 24px;
+            }
+            @media (min-width:768px) {
+                .textSize {
+                    font-size: 60px;
+                }
+                .contentBar {
+                    height: 6vh;
+                }
+                .logoHeight {
+                    height: 60px;
+                }
+                .descriptorFontSize {
+                    font-size: 24px;
+                }
+            }
+            @media (min-width:1024px) {
+                .textSize {
+                    font-size: 36px;
+                }
+                .contentBar {
+                    height: 5.5vh;
+                }
+                .logoHeight {
+                    height: 45px;
+                }
+                .descriptorFontSize {
+                    font-size: 16px;
+                }
+            }
+            @media (min-width:1280px) {
+                .textSize {
+                    font-size: 30px;
+                }
+                .contentBar {
+                    height: 5.5vh;
+                }
+                .logoHeight {
+                    height: 40px;
+                }
+            }
             * {
                 margin: 0;
                 padding: 0;
@@ -13,25 +66,28 @@
                 width:100%;
             }
             .center-fit {
-                max-width: 100%;
+                max-width: 125%;
                 max-height: 125vh;
                 margin: auto;
             }
         </style>
     </head>
-    <body style="margin: 0;">
-    <main style="">
+    <body style="margin: 0;"  >
+    <main style="width:100%">
         <div class="imgbox">
             <img class="center-fit" src="./heartRenders/16-12-2022—alhambrahjerte2.png" alt="a purple and white woven heart pattern render">
         </div>
-        <div style="position: fixed; bottom: 2.5rem; left: 0; width: 100%; height: 1rem; padding: 5px;">
-            <a href="https://www.loooading.com/" style="color:black;">LOOOADING</a> © 2022 — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" style="black: white;">BY-NC-SA 4.0</a>
-        </div>
-        <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 1.75rem; padding: 5px; background: rgb(92, 76, 28);">
-            <div style="display: grid; grid-template-columns: 3fr 1fr 1fr; color: white;">
-                <h1 style="font-size:x-large; font-family: Arial, Helvetica, sans-serif;">alhambrahjerte2</h1>
-                <p style="font-size:x-large; font-family: Arial, Helvetica, sans-serif;" >16-12-2022</p>
-                <a href="./patterns/16-12-2022—alhambrahjerte2.pdf" style=" color:white; display: flex; font-size:x-large; font-family: Arial, Helvetica, sans-serif;"> <img style="height: 30px; width: auto; margin-right: 5px; filter: invert(1);" src="./Arrow_Down.svg"> Download </a>
+        <h1 class="textSize" style=" z-index: 10; color:white; position:fixed; bottom: 1vh; left: 1vh; font-family: Arial, Helvetica, sans-serif;">alhambrahjerte2</h1>
+        <a class="textSize" href="./patterns/16-12-2022—alhambrahjerte2.pdf" style="z-index: 10; position:fixed; bottom: 1vh; right: 1vh; text-align: right;  color:white; display: flex; font-family: Arial, Helvetica, sans-serif;"> <img class="logoHeight" style="width: auto; margin-right: 5px; filter: invert(1);" src="./Arrow_Down.svg"> Download </a>
+
+        <div class="contentBar" style="position: fixed; bottom: 0; left: 0; width: 100%;  padding: 5px; background: rgb(92, 76, 28);">
+            <div class="descriptorFontSize" style="position:relative; width:100%; height:100%">
+                <div style="position: absolute; top: -2.5rem; left: 0; width: 100%; height: 1rem; padding: 5px;">
+                    <a href="https://www.loooading.com/" style="color:black;">LOOOADING</a> © 2022 — <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" style="black: white;">BY-NC-SA 4.0</a>
+                </div>
+                <div style="position: absolute; top: -2.5rem; right: 1vh; height: 1rem; padding: 5px;">
+                    <span style="font-family: Arial, Helvetica, sans-serif;" >16-12-2022</span>
+                </div>
             </div>
         </div>
     </main>
