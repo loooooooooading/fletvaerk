@@ -148,7 +148,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
         camera.add( listener );
         audioPlayer = new THREE.Audio( listener );
         const audioLoader = new THREE.AudioLoader();
-        audioLoader.load( './openFlap.mp3', function( buffer ) {
+        audioLoader.load( './2022/openFlap.mp3', function( buffer ) {
             audioPlayer.setBuffer( buffer );
             audioPlayer.setLoop( false );
             audioPlayer.setVolume( 1 );
@@ -285,56 +285,56 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
             calendarState = false
         }
 
-        const loadModels = [loader.loadAsync('./models/heart1.glb'), 
-        loader.loadAsync('./models/heart2.glb'),
-        loader.loadAsync('./models/heart3.glb'),
-        loader.loadAsync('./models/heart4.glb'),
-        loader.loadAsync('./models/heart5.glb'),
-        loader.loadAsync('./models/heart6.glb'),
-        loader.loadAsync('./models/heart7.glb'),
-        loader.loadAsync('./models/heart8.glb'),
-        loader.loadAsync('./models/heart9.glb'),
-        loader.loadAsync('./models/heart10.glb'),
-        loader.loadAsync('./models/heart11.glb'),
-        loader.loadAsync('./models/heart12.glb'),
-        loader.loadAsync('./models/heart13.glb'),
-        loader.loadAsync('./models/heart14.glb'),
-        loader.loadAsync('./models/heart15.glb'),
-        loader.loadAsync('./models/heart16.glb'),
-        loader.loadAsync('./models/heart17.glb'),
-        loader.loadAsync('./models/heart18.glb'),
-        loader.loadAsync('./models/heart19.glb'),
-        loader.loadAsync('./models/heart20.glb'),
-        loader.loadAsync('./models/heart21.glb'),
-        loader.loadAsync('./models/heart22.glb'),
-        loader.loadAsync('./models/heart23.glb'),
-        loader.loadAsync('./models/heart24.glb'),
-        loader.loadAsync('./models/tree.glb'), 
-        loader.loadAsync('./models/candles.glb'), 
-        loader.loadAsync('./models/flap00.glb'), 
-        loader.loadAsync('./models/flap01.glb'),
-        loader.loadAsync('./models/flap02.glb'),
-        loader.loadAsync('./models/flap03.glb'), 
-        loader.loadAsync('./models/flap04.glb'),
-        loader.loadAsync('./models/flap05.glb'), 
-        loader.loadAsync('./models/flap06.glb'),
-        loader.loadAsync('./models/flap07.glb'),
-        loader.loadAsync('./models/flap08.glb'), 
-        loader.loadAsync('./models/flap09.glb'),
-        loader.loadAsync('./models/flap10.glb'), 
-        loader.loadAsync('./models/flap11.glb'),
-        loader.loadAsync('./models/flap12.glb'),
-        loader.loadAsync('./models/flap13.glb'), 
-        loader.loadAsync('./models/flap14.glb'),
-        loader.loadAsync('./models/flap15.glb'), 
-        loader.loadAsync('./models/flap16.glb'),
-        loader.loadAsync('./models/flap17.glb'),
-        loader.loadAsync('./models/flap18.glb'), 
-        loader.loadAsync('./models/flap19.glb'),
-        loader.loadAsync('./models/flap20.glb'),
-        loader.loadAsync('./models/flap21.glb'),
-        loader.loadAsync('./models/flap22.glb'), 
-        loader.loadAsync('./models/flap23.glb')]
+        const loadModels = [loader.loadAsync('./2022/models/heart1.glb'), 
+        loader.loadAsync('./2022/models/heart2.glb'),
+        loader.loadAsync('./2022/models/heart3.glb'),
+        loader.loadAsync('./2022/models/heart4.glb'),
+        loader.loadAsync('./2022/models/heart5.glb'),
+        loader.loadAsync('./2022/models/heart6.glb'),
+        loader.loadAsync('./2022/models/heart7.glb'),
+        loader.loadAsync('./2022/models/heart8.glb'),
+        loader.loadAsync('./2022/models/heart9.glb'),
+        loader.loadAsync('./2022/models/heart10.glb'),
+        loader.loadAsync('./2022/models/heart11.glb'),
+        loader.loadAsync('./2022/models/heart12.glb'),
+        loader.loadAsync('./2022/models/heart13.glb'),
+        loader.loadAsync('./2022/models/heart14.glb'),
+        loader.loadAsync('./2022/models/heart15.glb'),
+        loader.loadAsync('./2022/models/heart16.glb'),
+        loader.loadAsync('./2022/models/heart17.glb'),
+        loader.loadAsync('./2022/models/heart18.glb'),
+        loader.loadAsync('./2022/models/heart19.glb'),
+        loader.loadAsync('./2022/models/heart20.glb'),
+        loader.loadAsync('./2022/models/heart21.glb'),
+        loader.loadAsync('./2022/models/heart22.glb'),
+        loader.loadAsync('./2022/models/heart23.glb'),
+        loader.loadAsync('./2022/models/heart24.glb'),
+        loader.loadAsync('./2022/models/tree.glb'), 
+        loader.loadAsync('./2022/models/candles.glb'), 
+        loader.loadAsync('./2022/models/flap00.glb'), 
+        loader.loadAsync('./2022/models/flap01.glb'),
+        loader.loadAsync('./2022/models/flap02.glb'),
+        loader.loadAsync('./2022/models/flap03.glb'), 
+        loader.loadAsync('./2022/models/flap04.glb'),
+        loader.loadAsync('./2022/models/flap05.glb'), 
+        loader.loadAsync('./2022/models/flap06.glb'),
+        loader.loadAsync('./2022/models/flap07.glb'),
+        loader.loadAsync('./2022/models/flap08.glb'), 
+        loader.loadAsync('./2022/models/flap09.glb'),
+        loader.loadAsync('./2022/models/flap10.glb'), 
+        loader.loadAsync('./2022/models/flap11.glb'),
+        loader.loadAsync('./2022/models/flap12.glb'),
+        loader.loadAsync('./2022/models/flap13.glb'), 
+        loader.loadAsync('./2022/models/flap14.glb'),
+        loader.loadAsync('./2022/models/flap15.glb'), 
+        loader.loadAsync('./2022/models/flap16.glb'),
+        loader.loadAsync('./2022/models/flap17.glb'),
+        loader.loadAsync('./2022/models/flap18.glb'), 
+        loader.loadAsync('./2022/models/flap19.glb'),
+        loader.loadAsync('./2022/models/flap20.glb'),
+        loader.loadAsync('./2022/models/flap21.glb'),
+        loader.loadAsync('./2022/models/flap22.glb'), 
+        loader.loadAsync('./2022/models/flap23.glb')]
 
         Promise.all(loadModels).then(models => {
             models.forEach(model => {
@@ -342,7 +342,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
 
                 
                 if(model.scene.children[0].name === "Circle") {
-                    textureLoader.load( "./pine.png", function ( map ) {
+                    textureLoader.load( "./2022/pine.png", function ( map ) {
                         map.needsUpdate = true
                         let treeModel = model.scene.children[0];
 
@@ -371,7 +371,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                 } else if(model.scene.children[0].name.includes('candle')){
                     scene.add(model.scene)
 
-                    textureLoader.load( './candle.png', function ( map ) {
+                    textureLoader.load( './2022/candle.png', function ( map ) {
 
                         const material = new THREE.SpriteMaterial({
                             map: map,
@@ -437,7 +437,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
             })
           })
 
-          const arrowmodelLoader = [loader.loadAsync('./models/rotatingArrow.glb')]
+          const arrowmodelLoader = [loader.loadAsync('./2022/models/rotatingArrow.glb')]
 
             Promise.all(arrowmodelLoader).then(models => {
                 models.forEach(model => {
@@ -545,7 +545,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.124.0/examples/jsm/l
                     
                 } else if(object.object.name.includes('heart') && hasIntersected === false && object.object.id === pointerElement){
                     hasIntersected = true
-                    window.open(`./days/${object.object.name.slice(5,7).replace('_','')}december.pdf`,'_blank');
+                    window.open(`./2022/days/${object.object.name.slice(5,7).replace('_','')}december.pdf`,'_blank');
                 }
             })
 
